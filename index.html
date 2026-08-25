@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Md. Shaishab Abedin Shuvo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#04060c;
+    --panel:#0b1120;
+    --card-border:rgba(79,107,255,.18);
+    --royal:#1e3aa8;
+    --royal-deep:#101a4d;
+    --electric:#4f6bff;
+    --electric-soft:rgba(79,107,255,.35);
+    --white:#f4f6fb;
+    --muted:#8695b7;
+    --mono:'IBM Plex Mono','Courier New',monospace;
+    --sans:'Outfit','Segoe UI',sans-serif;
+  }
+
+  #mode-toggle:checked ~ .page{
+    --black:#f3f5fb;
+    --panel:#ffffff;
+    --card-border:rgba(30,58,168,.15);
+    --white:#101527;
+    --muted:#5b6b8c;
+    --electric-soft:rgba(30,58,168,.18);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  #mode-toggle{position:absolute;opacity:0;pointer-events:none;}
+
+  body{background:var(--black);}
+
+  .page{
+    background:var(--black);
+    color:var(--white);
+    font-family:var(--sans);
+    overflow-x:hidden;
+    min-height:100vh;
+    transition:background .4s ease, color .4s ease;
+    position:relative;
+  }
+
+  /* ================= BOOT SEQUENCE (pure CSS, no JS) ================= */
+  #boot{
+    position:fixed;inset:0;
+    background:var(--black);
+    z-index:9999;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    clip-path:circle(150% at 50% 50%);
+    animation:bootWipe 1s cubic-bezier(.76,0,.24,1) forwards;
+    animation-delay:5.6s;
+    pointer-events:none;
+  }
+  @keyframes bootWipe{to{clip-path:circle(0% at 50% 50%);}}
+
+  #boot-grid{
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(79,107,255,.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,107,255,.07) 1px, transparent 1px);
+    background-size:34px 34px;
+    mask-image:radial-gradient(ellipse at center, black 10%, transparent 70%);
+  }
+
+  .boot-content{
+    position:relative;
+    display:flex;flex-direction:column;align-items:center;gap:22px;
+    padding:0 30px;width:100%;max-width:380px;
+  }
+
+  .boot-mark{position:relative;width:84px;height:84px;display:flex;align-items:center;justify-content:center;}
+  .boot-mark svg{width:100%;height:100%;}
+  .boot-ring{transform-origin:50% 50%;animation:spin 3.2s linear infinite;}
+  .boot-ring-2{transform-origin:50% 50%;animation:spinRev 4.6s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @keyframes spinRev{to{transform:rotate(-360deg);}}
+  .boot-initials{font-family:var(--mono);font-weight:700;font-size:19px;fill:#f4f6fb;}
+
+  .boot-status{position:relative;width:100%;height:16px;}
+  .boot-status span{
+    position:absolute;left:0;right:0;text-align:center;
+    font-family:var(--mono);font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--electric);opacity:0;
+  }
+  .bs1{animation:statusA 5.6s ease forwards;}
+  .bs2{animation:statusB 5.6s ease forwards;}
+  .bs3{animation:statusC 5.6s ease forwards;}
+  .bs4{animation:statusD 5.6s ease forwards;}
+  .bs5{animation:statusE 5.6s ease forwards;}
+  @keyframes statusA{0%{opacity:1;}20%{opacity:1;}25%{opacity:0;}100%{opacity:0;}}
+  @keyframes statusB{0%{opacity:0;}20%{opacity:0;}25%{opacity:1;}40%{opacity:1;}45%{opacity:0;}100%{opacity:0;}}
+  @keyframes statusC{0%{opacity:0;}40%{opacity:0;}45%{opacity:1;}60%{opacity:1;}65%{opacity:0;}100%{opacity:0;}}
+  @keyframes statusD{0%{opacity:0;}65%{opacity:0;}70%{opacity:1;}88%{opacity:1;}92%{opacity:0;}100%{opacity:0;}}
+  @keyframes statusE{0%{opacity:0;}92%{opacity:0;}96%{opacity:1;}100%{opacity:1;}}
+
+  .boot-term{
+    font-family:var(--mono);font-size:12px;color:var(--muted);
+    line-height:1.9;width:100%;min-height:112px;text-align:left;
+  }
+  .boot-term div{
+    overflow:hidden;white-space:nowrap;width:0;
+    border-right:2px solid var(--electric);
+  }
+  .bl1{animation:type1 .9s steps(32,end) forwards;animation-delay:.3s;}
+  .bl2{animation:type2 .85s steps(31,end) forwards;animation-delay:1.3s;color:#4fd68c;}
+  .bl3{animation:type3 .85s steps(31,end) forwards;animation-delay:2.25s;}
+  .bl4{animation:type4 1s steps(38,end) forwards;animation-delay:3.2s;color:var(--electric);}
+  .bl5{animation:type5 .65s steps(21,end) forwards;animation-delay:4.35s;color:#4fd68c;}
+  @keyframes type1{to{width:19.7ch;}}
+  @keyframes type2{to{width:19.1ch;}}
+  @keyframes type3{to{width:19.1ch;}}
+  @keyframes type4{to{width:23.4ch;}}
+  @keyframes type5{to{width:12.9ch;}}
+
+  .boot-bar-track{width:100%;height:3px;background:var(--card-border);border-radius:3px;overflow:hidden;}
+  .boot-bar-fill{
+    height:100%;width:0%;
+    background:linear-gradient(90deg,var(--royal-deep),var(--electric));
+    box-shadow:0 0 12px var(--electric-soft);
+    animation:fillBar 5s linear forwards;
+    animation-delay:.2s;
+  }
+  @keyframes fillBar{to{width:100%;}}
+
+  .boot-final{
+    font-family:var(--mono);font-size:15px;letter-spacing:.15em;font-weight:700;
+    color:#fff;opacity:0;text-shadow:0 0 12px var(--electric-soft);
+    animation:glitchIn .5s steps(2,end) forwards;
+    animation-delay:5.15s;
+  }
+  @keyframes glitchIn{
+    0%{opacity:0;transform:translate(0);}
+    20%{opacity:1;transform:translate(-2px,1px);text-shadow:2px 0 #ff4f6b,-2px 0 #4fd6ff;}
+    40%{transform:translate(2px,-1px);}
+    60%{transform:translate(-1px,0);text-shadow:1px 0 #ff4f6b,-1px 0 #4fd6ff;}
+    100%{opacity:1;transform:translate(0);text-shadow:0 0 12px var(--electric-soft);}
+  }
+
+  .scanline{
+    position:fixed;inset:0;
+    background:linear-gradient(transparent 0%, rgba(79,107,255,.04) 50%, transparent 100%);
+    background-size:100% 4px;pointer-events:none;z-index:9998;opacity:.5;
+  }
+
+  /* decorative floating glow blobs */
+  .glow{position:fixed;border-radius:50%;filter:blur(70px);opacity:.25;z-index:0;pointer-events:none;}
+  .glow-1{width:280px;height:280px;background:var(--royal);top:-60px;left:-60px;animation:float1 14s ease-in-out infinite;}
+  .glow-2{width:320px;height:320px;background:var(--electric);bottom:10%;right:-80px;animation:float2 16s ease-in-out infinite;}
+  @keyframes float1{0%,100%{transform:translate(0,0);}50%{transform:translate(40px,60px);}}
+  @keyframes float2{0%,100%{transform:translate(0,0);}50%{transform:translate(-30px,-50px);}}
+
+  .mode-switch{
+    position:fixed;top:18px;right:18px;z-index:50;
+    width:56px;height:30px;border-radius:20px;
+    background:var(--panel);border:1px solid var(--card-border);
+    display:flex;align-items:center;padding:3px;cursor:pointer;
+  }
+  .mode-switch .knob{
+    width:22px;height:22px;border-radius:50%;
+    background:linear-gradient(135deg,var(--electric),var(--royal-deep));
+    display:flex;align-items:center;justify-content:center;font-size:12px;
+    transition:transform .35s cubic-bezier(.68,-0.4,.27,1.4);
+  }
+  #mode-toggle:checked ~ .page .mode-switch .knob{transform:translateX(26px);}
+  .mode-switch .knob::before{content:'🌙';}
+  #mode-toggle:checked ~ .page .mode-switch .knob::before{content:'☀️';}
+
+  .wrap{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:0 24px 80px;}
+
+  header.hero{padding:70px 0 40px;text-align:center;position:relative;}
+
+  .avatar{
+    width:120px;height:120px;border-radius:50%;margin:0 auto 26px;
+    background:radial-gradient(circle at 30% 30%, var(--royal), var(--royal-deep));
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:34px;font-weight:700;color:#fff;
+    overflow:hidden;border:2px solid var(--electric);
+    box-shadow:0 0 0 6px var(--electric-soft), 0 0 40px var(--electric-soft);
+    animation:pulseRing 3s ease-in-out infinite;
+  }
+  .avatar img{width:100%;height:100%;object-fit:cover;}
+  @keyframes pulseRing{
+    0%,100%{box-shadow:0 0 0 6px var(--electric-soft), 0 0 40px var(--electric-soft);}
+    50%{box-shadow:0 0 0 10px var(--electric-soft), 0 0 60px var(--electric-soft);}
+  }
+
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.25em;color:var(--electric);text-transform:uppercase;margin-bottom:10px;opacity:0;animation:rise .6s ease forwards;animation-delay:5.8s;}
+  h1{font-size:30px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px;opacity:0;animation:rise .6s ease forwards;animation-delay:5.95s;}
+  .role{font-family:var(--mono);color:var(--muted);font-size:14px;margin-bottom:22px;opacity:0;animation:rise .6s ease forwards;animation-delay:6.1s;}
+  .tagline{font-size:14px;color:var(--muted);max-width:420px;margin:0 auto 28px;line-height:1.6;opacity:0;animation:rise .6s ease forwards;animation-delay:6.25s;}
+  @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+  .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;opacity:0;animation:rise .6s ease forwards;animation-delay:6.4s;}
+  .btn{
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;
+    padding:12px 20px;border-radius:8px;text-decoration:none;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-primary{background:linear-gradient(135deg,var(--electric),var(--royal-deep));color:#fff;box-shadow:0 4px 20px var(--electric-soft);}
+  .btn-outline{border:1px solid var(--card-border);color:var(--white);background:transparent;}
+  .btn:active{transform:scale(.96);}
+  .btn:hover{transform:translateY(-2px);}
+
+  .trace{position:relative;padding-left:26px;margin:52px 0 0;opacity:0;animation:rise .7s ease forwards;}
+  .trace:nth-of-type(1){animation-delay:6.6s;}
+  .trace:nth-of-type(2){animation-delay:6.72s;}
+  .trace:nth-of-type(3){animation-delay:6.84s;}
+  .trace:nth-of-type(4){animation-delay:6.96s;}
+  .trace:nth-of-type(5){animation-delay:7.08s;}
+  .trace:nth-of-type(6){animation-delay:7.2s;}
+  .trace::before{content:'';position:absolute;left:6px;top:2px;bottom:-52px;width:1px;background:linear-gradient(var(--electric), transparent 90%);opacity:.35;}
+  .trace:last-of-type::before{display:none;}
+  .trace::after{content:'';position:absolute;left:2px;top:2px;width:9px;height:9px;border-radius:50%;background:var(--electric);box-shadow:0 0 10px var(--electric);}
+
+  .sec-label{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--electric);margin-bottom:14px;}
+
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .info-card{background:var(--panel);border:1px solid var(--card-border);border-radius:10px;padding:14px 16px;}
+  .info-card .k{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:4px;}
+  .info-card .v{font-size:14px;font-weight:600;color:var(--white);}
+
+  .modules{display:flex;flex-wrap:wrap;gap:8px;}
+  .module{font-family:var(--mono);font-size:12.5px;padding:9px 14px;border-radius:20px;background:var(--electric-soft);border:1px solid var(--card-border);color:var(--white);transition:transform .25s ease;}
+  .module:hover{transform:translateY(-2px);}
+  .module::before{content:'●';color:var(--electric);margin-right:6px;font-size:8px;}
+
+  .field-list{display:flex;flex-direction:column;gap:10px;}
+  .field-item{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--card-border);border-radius:10px;padding:14px 16px;}
+  .field-item .dot{width:8px;height:8px;border-radius:50%;background:var(--electric);box-shadow:0 0 8px var(--electric);flex-shrink:0;}
+  .field-item span{font-size:14px;}
+
+  .lang-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--card-border);}
+  .lang-row:last-child{border-bottom:none;}
+  .lang-name{font-size:14px;font-weight:600;}
+  .lang-tag{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.08em;}
+  .bars{display:flex;gap:3px;align-items:flex-end;}
+  .bars i{display:block;width:5px;background:var(--card-border);border-radius:2px;}
+  .bars i:nth-child(1){height:8px;} .bars i:nth-child(2){height:13px;} .bars i:nth-child(3){height:18px;} .bars i:nth-child(4){height:23px;}
+  .bars.fill-4 i{background:var(--electric);box-shadow:0 0 6px var(--electric-soft);}
+  .bars.fill-2 i:nth-child(-n+2){background:var(--electric);box-shadow:0 0 6px var(--electric-soft);}
+
+  .terminal{background:var(--panel);border:1px solid var(--card-border);border-radius:12px;overflow:hidden;}
+  .terminal-head{display:flex;gap:6px;padding:10px 14px;background:var(--electric-soft);border-bottom:1px solid var(--card-border);}
+  .terminal-head i{width:9px;height:9px;border-radius:50%;display:block;}
+  .terminal-head i:nth-child(1){background:#ff5f57;} .terminal-head i:nth-child(2){background:#febc2e;} .terminal-head i:nth-child(3){background:#28c840;}
+  .terminal-body{padding:10px 16px;font-family:var(--mono);font-size:13px;}
+  .terminal-body a{
+    color:var(--white);text-decoration:none;
+    display:flex;align-items:center;gap:12px;
+    padding:11px 0;border-bottom:1px solid var(--card-border);
+    transition:color .2s ease, padding-left .2s ease;
+  }
+  .terminal-body a:last-child{border-bottom:none;}
+  .terminal-body a:hover{color:var(--electric);padding-left:4px;}
+  .terminal-body .prompt{color:var(--electric);}
+  .social-icon{width:22px;height:22px;border-radius:6px;object-fit:cover;flex-shrink:0;border:1px solid var(--card-border);background:var(--black);}
+
+  footer{text-align:center;margin-top:60px;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em;}
+
+  @media (max-width:420px){h1{font-size:26px;}}
+  @media (prefers-reduced-motion: reduce){
+    #boot{display:none;}
+    .wrap *{animation:none !important;opacity:1 !important;transform:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<input type="checkbox" id="mode-toggle">
+<div class="page">
+
+  <div id="boot">
+    <div id="boot-grid"></div>
+    <div class="boot-content">
+      <div class="boot-mark">
+        <svg viewBox="0 0 100 100">
+          <circle class="boot-ring" cx="50" cy="50" r="46" fill="none" stroke="#4f6bff" stroke-width="1.4" stroke-dasharray="8 10" opacity=".55"/>
+          <circle class="boot-ring-2" cx="50" cy="50" r="36" fill="none" stroke="#8aa0ff" stroke-width="1" stroke-dasharray="3 7" opacity=".4"/>
+          <circle cx="50" cy="50" r="26" fill="#0b1020" stroke="#4f6bff" stroke-width="1.5"/>
+          <text x="50" y="56" text-anchor="middle" class="boot-initials">SS</text>
+        </svg>
+      </div>
+      <div class="boot-status">
+        <span class="bs1">Establishing Connection</span>
+        <span class="bs2">Verifying Signature</span>
+        <span class="bs3">Decrypting Data</span>
+        <span class="bs4">Loading Profile</span>
+        <span class="bs5">Access Granted</span>
+      </div>
+      <div class="boot-term">
+        <div class="bl1">&gt; initializing secure session...</div>
+        <div class="bl2">&gt; verifying device signature...</div>
+        <div class="bl3">&gt; decrypting identity module...</div>
+        <div class="bl4">&gt; loading profile: SHAISHAB.SYS</div>
+        <div class="bl5">&gt; handshake complete.</div>
+      </div>
+      <div class="boot-bar-track"><div class="boot-bar-fill"></div></div>
+      <div class="boot-final">ACCESS GRANTED</div>
+    </div>
+  </div>
+
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="scanline"></div>
+
+  <label for="mode-toggle" class="mode-switch"><span class="knob"></span></label>
+
+  <div class="wrap">
+
+    <header class="hero">
+      <div class="avatar">
+        <img src="photo.jpg" alt="Shaishab Abedin Shuvo" onerror="this.style.display='none';this.parentElement.innerHTML+='SS';">
+      </div>
+      <div class="eyebrow">Digital Profile // Verified</div>
+      <h1>Md. Shaishab Abedin Shuvo</h1>
+      <div class="role">Electrical Engineering Student &middot; Robotics &amp; Embedded Systems</div>
+      <p class="tagline">Building things that think, sense, and connect — from circuit boards to code.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="tel:+8801710730734">&#9742; Call</a>
+        <a class="btn btn-outline" href="mailto:shaishababedinshuvo098@gmail.com">&#9993; Email</a>
+        <a class="btn btn-outline" href="#contact">&#9776; More</a>
+      </div>
+    </header>
+
+    <section class="trace">
+      <div class="sec-label">// Profile Data</div>
+      <div class="info-grid">
+        <div class="info-card"><div class="k">Age</div><div class="v">22</div></div>
+        <div class="info-card"><div class="k">Date of Birth</div><div class="v">01 Jan 2004</div></div>
+        <div class="info-card"><div class="k">Sex</div><div class="v">Male</div></div>
+        <div class="info-card"><div class="k">Height</div><div class="v">6 ft</div></div>
+        <div class="info-card"><div class="k">Blood Group</div><div class="v">A+</div></div>
+        <div class="info-card"><div class="k">Studying</div><div class="v">Electrical Engg.</div></div>
+      </div>
+    </section>
+
+    <section class="trace">
+      <div class="sec-label">// Passion</div>
+      <div class="modules">
+        <div class="module">Robotics</div>
+        <div class="module">Programming</div>
+        <div class="module">Building</div>
+      </div>
+    </section>
+
+    <section class="trace">
+      <div class="sec-label">// Technical Stack</div>
+      <div class="modules">
+        <div class="module">C Programming</div>
+        <div class="module">Python</div>
+        <div class="module">Web Development</div>
+        <div class="module">Kernel Patcher</div>
+      </div>
+    </section>
+
+    <section class="trace">
+      <div class="sec-label">// Field Experience</div>
+      <div class="field-list">
+        <div class="field-item"><div class="dot"></div><span>Mobile Servicing</span></div>
+        <div class="field-item"><div class="dot"></div><span>Consumer Electronics</span></div>
+      </div>
+    </section>
+
+    <section class="trace">
+      <div class="sec-label">// Languages</div>
+      <div class="terminal" style="padding:6px 16px;">
+        <div class="lang-row">
+          <div><div class="lang-name">English</div><div class="lang-tag">FLUENT</div></div>
+          <div class="bars fill-4"><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="lang-row">
+          <div><div class="lang-name">Hindi</div><div class="lang-tag">FLUENT</div></div>
+          <div class="bars fill-4"><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="lang-row">
+          <div><div class="lang-name">German</div><div class="lang-tag">LEARNING</div></div>
+          <div class="bars fill-2"><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trace" id="contact">
+      <div class="sec-label">// Connect</div>
+      <div class="terminal">
+        <div class="terminal-head"><i></i><i></i><i></i></div>
+        <div class="terminal-body">
+          <a href="tel:+8801710730734"><span class="prompt">$</span> call --number +880-171-0730734</a>
+          <a href="mailto:shaishababedinshuvo098@gmail.com"><span class="prompt">$</span> mail --to shuvo</a>
+          <a href="https://wa.me/8801710730734" target="_blank" rel="noopener">
+            <img class="social-icon" src="photo4.jpg" alt="" onerror="this.style.display='none';"><span class="prompt">$</span> open --app whatsapp
+          </a>
+          <a href="https://www.facebook.com/BlackCloud098?mibextid=ZbWKwL" target="_blank" rel="noopener">
+            <img class="social-icon" src="photo2.jpg" alt="" onerror="this.style.display='none';"><span class="prompt">$</span> open --app facebook
+          </a>
+          <a href="https://www.instagram.com/shaishab_abedin?igsi=bTNyNnBtNWlmZ2Q=" target="_blank" rel="noopener">
+            <img class="social-icon" src="photo5.jpg" alt="" onerror="this.style.display='none';"><span class="prompt">$</span> open --app instagram
+          </a>
+          <a href="https://www.linkedin.com/in/shaishab-abedin-992236265" target="_blank" rel="noopener">
+            <img class="social-icon" src="photo3.jpg" alt="" onerror="this.style.display='none';"><span class="prompt">$</span> open --app linkedin
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>SYSTEM ONLINE &middot; TAP ICON TOP-RIGHT TO SWITCH THEME</footer>
+
+  </div>
+</div>
+
+</body>
+</html>
